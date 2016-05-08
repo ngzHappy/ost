@@ -12,3 +12,4 @@ release/*
 *.vcxproj
 Jamroot
 
+*.sln

@@ -11,5 +11,5 @@ release/*
 *.filters
 *.vcxproj
 Jamroot
-
+.vs/*
 *.sln

@@ -18,6 +18,7 @@ QMAKE_CXXFLAGS+=-Wno-deprecated-declarations
 win32:{
 #boost filesystem
 LIBS += -lAdvapi32
+DEFINES *=_WIN32_WINNT=0x0501
 }
 
 SOURCES += $$PWD/boostLibs/boost_c_regex_traits.cpp

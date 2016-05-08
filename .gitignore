@@ -3,6 +3,12 @@ build-BoostTest-Desktop_Qt_5_7_0_MinGW_32bit-Release/*
 build-BoostTest-q57vs2015-Debug/*
 build-BoostTest-q57vs2015-Release/*
 libs/*
+debug/*
+release/*
 *.user
+*.bat
+*.cmd
+*.filters
+*.vcxproj
 Jamroot
 

@@ -47,7 +47,12 @@ public:
     using size_type=std::size_t;
     using error_code_type=boost::system::error_code;
     template<typename ..._Args_>
-    static auto buffer(_Args_&&..._args_) { return boost::asio::buffer(std::forward<_Args_>(_args_)...); }
+    static decltype(auto) buffer(_Args_&&..._args_) { return boost::asio::buffer(std::forward<_Args_>(_args_)...); }
+    template<typename _T_,typename ..._Args_>
+    static shared_ptr_type<_T_>make_shared(_Args_&&..._args_) {
+        return shared_ptr_type<_T_>(new _T_(std::forward<_Args_>(_args_)...));
+    }
+   
 public:
     AsioTypeTraits()=default;
     virtual ~AsioTypeTraits()=default;

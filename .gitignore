@@ -13,3 +13,13 @@ release/*
 Jamroot
 .vs/*
 *.sln
+*.exe
+*.tlog
+*.obj
+*.ilk
+*.db
+*.opendb
+*.pdb
+*.log
+BoostTest1/debug/*
+BoostTest1/release/*

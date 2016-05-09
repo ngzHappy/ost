@@ -21,6 +21,11 @@ LIBS += -lAdvapi32
 DEFINES *=_WIN32_WINNT=0x0501
 }
 
+win32-g++*{
+LIBS += -lws2_32
+LIBS += -lwsock32
+}
+
 SOURCES += $$PWD/boostLibs/boost_c_regex_traits.cpp
 SOURCES += $$PWD/boostLibs/boost_chrono.cpp
 SOURCES += $$PWD/boostLibs/boost_codecvt_error_category.cpp

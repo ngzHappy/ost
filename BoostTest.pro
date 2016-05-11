@@ -8,4 +8,4 @@ CONFIG -= ordered
 #.target #Base string used for makefile targets related to this subproject. Available only on platforms that use makefiles.
 SUBDIRS += BoostTest
 SUBDIRS += BoostTest1
-
+SUBDIRS += BoostTest2

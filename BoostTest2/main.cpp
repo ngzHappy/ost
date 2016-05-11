@@ -179,6 +179,7 @@ public:
 };
 
 
+
 int main(int argc,char *argv[]) {
 
     CplusplusThread thread_;
@@ -199,7 +200,7 @@ int main(int argc,char *argv[]) {
     cvalue(main_ans=-9999,int);
 
     {
-       
+
         QApplication app(argc,argv);
        
         std::cout<<std::this_thread::get_id()<<std::endl;
@@ -210,6 +211,15 @@ int main(int argc,char *argv[]) {
 
         MainWindow window;
         window.show();
+
+        {
+            std::thread xxt{ 
+                [&window]() {
+                QApplication::postEvent(&window,new QEvent{QEvent::None});
+            }
+            };
+            xxt.detach();
+        }
 
         main_ans=app.exec();
     }

@@ -10,6 +10,8 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
+protected:
+    bool event(QEvent *)override;
 };
 
 #endif // MAINWINDOW_HPP

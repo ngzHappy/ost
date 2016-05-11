@@ -61,7 +61,7 @@ auto make_unique_lock_shared_mutex(_T_&&_v_,_Args_&&..._args_) {
 class GCInterFace {
 public:
     virtual ~GCInterFace()=default;
-    virtual void aboutToDelete() {/*clear resouce before delete*/}
+    virtual void aboutToDelete() {/*clear resouce before delete*/ }
 public:
     GCInterFace()=default;
     GCInterFace(const GCInterFace&)=default;
@@ -83,7 +83,7 @@ public:
         before_start_=std::make_shared<std::list<std::function<void(void)>>>();
     }
 
-    void deleteClass(GCInterFace*_class_){
+    void deleteClass(GCInterFace*_class_) {
         if (_class_==nullptr) { return; }
         _class_->aboutToDelete();
         post([_class_]() {delete _class_; });
@@ -134,6 +134,51 @@ public:
     }
 };
 
+class WrapEventDispatcher :public QAbstractEventDispatcher {
+    QAbstractEventDispatcher*const real_;
+public:
+    WrapEventDispatcher(QAbstractEventDispatcher*arg):real_(arg) {}
+    virtual bool hasPendingEvents() { return real_->hasPendingEvents(); }
+    virtual int remainingTime(int timerId) { return real_->remainingTime(timerId); }
+
+    virtual void flush() override{ return real_->flush(); }
+    virtual void interrupt() override{ return real_->interrupt(); }
+    virtual bool processEvents(QEventLoop::ProcessEventsFlags flags) override{ 
+        return real_->processEvents(flags);
+    }
+    virtual bool registerEventNotifier(QWinEventNotifier *notifier) override{ 
+        return real_->registerEventNotifier(notifier);
+    }
+    virtual void registerSocketNotifier(QSocketNotifier *notifier) override{
+        return real_->registerSocketNotifier(notifier);
+    }
+    virtual void registerTimer(
+        int timerId,
+        int interval,
+        Qt::TimerType timerType,
+        QObject *object) override{
+        return real_->registerTimer(timerId,interval,timerType,object);
+    }
+    virtual QList<TimerInfo> registeredTimers(QObject *object) const override{
+        return real_->registeredTimers(object);
+    }
+    virtual void unregisterEventNotifier(QWinEventNotifier *notifier) override{
+        return real_->unregisterEventNotifier(notifier);
+    }
+    virtual void unregisterSocketNotifier(QSocketNotifier *notifier) override{
+        return real_->unregisterSocketNotifier(notifier);
+    }
+    virtual bool unregisterTimer(int timerId) override{
+        return real_->unregisterTimer(timerId);
+    }
+    virtual bool unregisterTimers(QObject *object) override{
+        return real_->unregisterTimers(object);
+    }
+    virtual void wakeUp()override { real_->wakeUp(); }
+
+};
+
+
 int main(int argc,char *argv[]) {
 
     CplusplusThread thread_;
@@ -154,8 +199,9 @@ int main(int argc,char *argv[]) {
     cvalue(main_ans=-9999,int);
 
     {
-
+       
         QApplication app(argc,argv);
+       
         std::cout<<std::this_thread::get_id()<<std::endl;
 
         service.post([]() {

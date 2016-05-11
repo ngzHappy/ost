@@ -5,6 +5,7 @@ build-BoostTest-q57vs2015-Release/*
 libs/*
 debug/*
 release/*
+ipch/*
 *.user
 *.bat
 *.cmd
@@ -23,3 +24,5 @@ Jamroot
 *.log
 BoostTest1/debug/*
 BoostTest1/release/*
+BoostTest2/debug/*
+BoostTest2/release/*

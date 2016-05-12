@@ -70,7 +70,20 @@ using namespace std::chrono_literals;
 #include <vector>
 #include <unordered_map>
 #include <unordered_set>
+#endif/*~__cplusplus*/
+
+#ifdef __cplusplus
+
+#ifndef declt_rmr
+#define declt_rmr(_X_) std::remove_reference_t<decltype(_X_)>
 #endif
+
+#ifndef declt_rmcvr
+#define declt_rmcvr(_X_) std::remove_cv_t<\
+std::remove_reference_t<decltype(_X_)>/*space*/>
+#endif
+
+#endif/*~__cplusplus*/
 
 #endif/*cpp base def*/
 /*as c++14*/
